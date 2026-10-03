@@ -1,11 +1,12 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class RegisterPage {
+public class RegisterPage extends BasePage {
 
     @FindBy(xpath = "//input[@name='name']")
     private WebElement nameField;
@@ -26,21 +27,24 @@ public class RegisterPage {
     private WebElement loginLink;
 
     public RegisterPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
+    @Step("Заполнить форму регистрации: имя {name}, email {email}")
     public void register(String name, String email, String password) {
-        nameField.sendKeys(name);
+        wait.until(ExpectedConditions.visibilityOf(nameField)).sendKeys(name);
         emailField.sendKeys(email);
         passwordField.sendKeys(password);
-        submitButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
     }
 
+    @Step("Получить текст сообщения об ошибке")
     public String getErrorMessage() {
-        return errorMessage.getText();
+        return wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
     }
 
+    @Step("Клик по ссылке «Войти»")
     public void clickLoginLink() {
-        loginLink.click();
+        wait.until(ExpectedConditions.elementToBeClickable(loginLink)).click();
     }
 }

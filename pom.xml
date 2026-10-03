@@ -26,7 +26,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Selenium -->
+        <!-- Selenium WebDriver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -34,7 +34,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- WebDriverManager — сам скачивает драйверы -->
+        <!-- WebDriverManager — автоматически скачивает драйверы -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -42,7 +42,22 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Allure JUnit 4 -->
+        <!-- REST Assured — для создания/удаления пользователя через API -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Gson — сериализация POJO User в JSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+
+        <!-- Allure JUnit 4 — отчёт + @Step аннотации -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit4</artifactId>
@@ -50,11 +65,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Apache HttpComponents — константы HttpStatus (опционально) -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
 
+            <!-- Surefire: запуск JUnit-тестов + listener Allure -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -75,6 +98,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Allure Maven: генерация HTML-отчёта -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
