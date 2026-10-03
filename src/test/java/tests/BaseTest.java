@@ -57,7 +57,6 @@ public class BaseTest {
         registerPage = new RegisterPage(driver);
         recoveryPage = new PasswordRecoveryPage(driver);
 
-        // Создание уникального пользователя через API
         userApiClient = new UserApiClient();
         user = new User(
                 "test" + System.currentTimeMillis() + "@yandex.ru",
@@ -66,8 +65,6 @@ public class BaseTest {
         );
 
         Response regResponse = userApiClient.register(user);
-
-        // Проверяем, что регистрация прошла успешно
         regResponse.then()
                 .statusCode(200)
                 .body("success", is(true))

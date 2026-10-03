@@ -1,5 +1,6 @@
 package api;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.User;
@@ -10,6 +11,7 @@ public class UserApiClient {
 
     private static final String BASE = "https://stellarburgers.education-services.ru/api";
 
+    @Step("Создать пользователя через API: {user.email}")
     public Response register(User user) {
         return given()
                 .contentType(ContentType.JSON)
@@ -18,6 +20,7 @@ public class UserApiClient {
                 .post(BASE + "/auth/register");
     }
 
+    @Step("Удалить пользователя по accessToken")
     public Response delete(String accessToken) {
         return given()
                 .header("Authorization", accessToken)

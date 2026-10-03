@@ -38,6 +38,18 @@ public class RegisterPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
     }
 
+    @Step("Зарегистрировать пользователя и дождаться редиректа")
+    public void registerSuccess(String name, String email, String password) {
+        register(name, email, password);
+        wait.until(ExpectedConditions.not(
+                ExpectedConditions.urlContains("/register")));
+    }
+
+    @Step("Проверить, что регистрация прошла успешно")
+    public boolean isRegistrationSuccessful() {
+        return !driver.getCurrentUrl().contains("register");
+    }
+
     @Step("Получить текст сообщения об ошибке")
     public String getErrorMessage() {
         return wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();

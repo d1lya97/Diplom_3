@@ -3,7 +3,7 @@ package tests;
 import io.qameta.allure.Description;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LoginTest extends BaseTest {
 
@@ -12,8 +12,8 @@ public class LoginTest extends BaseTest {
     public void testLoginFromMain() {
         mainPage.clickLoginButton();
         loginPage.login(user.getEmail(), user.getPassword());
-        assertFalse("Логин не прошёл, остались на /login",
-                driver.getCurrentUrl().contains("login"));
+        assertTrue("Логин не прошёл, остались на /login",
+                loginPage.isLoginSuccessful());
     }
 
     @Test
@@ -21,8 +21,8 @@ public class LoginTest extends BaseTest {
     public void testLoginFromAccount() {
         mainPage.clickAccountButton();
         loginPage.login(user.getEmail(), user.getPassword());
-        assertFalse("Логин не прошёл, остались на /login",
-                driver.getCurrentUrl().contains("login"));
+        assertTrue("Логин не прошёл, остались на /login",
+                loginPage.isLoginSuccessful());
     }
 
     @Test
@@ -32,8 +32,8 @@ public class LoginTest extends BaseTest {
         loginPage.clickRegisterLink();
         registerPage.clickLoginLink();
         loginPage.login(user.getEmail(), user.getPassword());
-        assertFalse("Логин не прошёл, остались на /login",
-                driver.getCurrentUrl().contains("login"));
+        assertTrue("Логин не прошёл, остались на /login",
+                loginPage.isLoginSuccessful());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickRecoverLink();
         recoveryPage.clickLoginLink();
         loginPage.login(user.getEmail(), user.getPassword());
-        assertFalse("Логин не прошёл, остались на /login",
-                driver.getCurrentUrl().contains("login"));
+        assertTrue("Логин не прошёл, остались на /login",
+                loginPage.isLoginSuccessful());
     }
 }

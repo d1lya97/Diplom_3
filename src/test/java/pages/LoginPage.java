@@ -56,6 +56,11 @@ public class LoginPage extends BasePage {
                 ExpectedConditions.urlContains("/login")));
     }
 
+    @Step("Проверить, что логин прошёл успешно")
+    public boolean isLoginSuccessful() {
+        return !driver.getCurrentUrl().contains("login");
+    }
+
     @Step("Клик по ссылке «Зарегистрироваться»")
     public void clickRegisterLink() {
         wait.until(ExpectedConditions.elementToBeClickable(registerLink)).click();

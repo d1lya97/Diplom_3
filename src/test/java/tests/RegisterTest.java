@@ -2,12 +2,7 @@ package tests;
 
 import io.qameta.allure.Description;
 import org.junit.Test;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RegisterTest extends BaseTest {
@@ -17,15 +12,13 @@ public class RegisterTest extends BaseTest {
     public void testSuccessfulRegistration() {
         mainPage.clickLoginButton();
         loginPage.clickRegisterLink();
-        registerPage.register(
+        registerPage.registerSuccess(
                 "NewTester",
                 "new" + System.currentTimeMillis() + "@yandex.ru",
                 "Password123!"
         );
-        // Ждём смены URL ТОЛЬКО в тесте успешной регистрации
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.not(ExpectedConditions.urlContains("/register")));
-        assertFalse(driver.getCurrentUrl().contains("register"));
+        assertTrue("Регистрация не прошла, остались на /register",
+                registerPage.isRegistrationSuccessful());
     }
 
     @Test

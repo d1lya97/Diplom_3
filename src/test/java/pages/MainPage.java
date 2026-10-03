@@ -58,12 +58,10 @@ public class MainPage extends BasePage {
 
     @Step("Проверить, что раздел {tabName} активен")
     public boolean isTabActive(String tabName) {
-        // Проверяем класс на прямом родителе span
         By parentLocator = By.xpath("//span[text()='" + tabName + "']/parent::div");
         if (hasActiveClass(parentLocator)) {
             return true;
         }
-        // Проверяем класс на родителе родителя
         By grandParentLocator = By.xpath("//span[text()='" + tabName + "']/parent::div/parent::div");
         return hasActiveClass(grandParentLocator);
     }
